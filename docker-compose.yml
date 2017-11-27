@@ -6,7 +6,9 @@ services:
     build:
       context: elasticsearch/
       args:
-        ELK_VERSION: $ELK_VERSION
+        ES_VERSION: $ES_VERSION
+        SG_PLUGIN_VERSION: $SG_PLUGIN_VERSION
+        SG_SSL_PLUGIN_VERSION: $SG_SSL_PLUGIN_VERSION
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     ports:
@@ -21,7 +23,7 @@ services:
     build:
       context: logstash/
       args:
-        ELK_VERSION: $ELK_VERSION
+        LS_VERSION: $LS_VERSION
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./logstash/pipeline:/usr/share/logstash/pipeline
@@ -38,7 +40,8 @@ services:
     build:
       context: kibana/
       args:
-        ELK_VERSION: $ELK_VERSION
+        KIBANA_VERSION: $KIBANA_VERSION
+        SG_KIBANA_PLUGIN_VERSION: $SG_KIBANA_PLUGIN_VERSION
     volumes:
       - ./kibana/config/:/usr/share/kibana/config
     ports:
