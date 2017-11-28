@@ -282,6 +282,23 @@ logstash:
     LS_JAVA_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=18080 -Dcom.sun.management.jmxremote.rmi.port=18080 -Djava.rmi.server.hostname=DOCKER_HOST_IP -Dcom.sun.management.jmxremote.local.only=false"
 ```
 
+### How to change admin password?
+
+Generate new password hash:
+```console
+$ docker-compose exec -T elasticsearch plugins/search-guard-<VERSION>/tools/hash.sh -p password
+```
+
+Copy-paste hash to config:
+```console
+$ vim ./elasticsearch/config/sg_internal_users.yml
+```
+
+Reinit SG plugin:
+```console
+$ docker-compose exec -T elasticsearch bin/init_sg.sh
+```
+
 ## Updates
 
 ### Using a newer stack version
