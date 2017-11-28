@@ -21,7 +21,30 @@ services:
       - ./elasticsearch/config/node-0-keystore.jks:/usr/share/elasticsearch/config/node-0-keystore.jks
     ports:
       - "9200:9200"
-      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elk
+
+  elasticsearch2:
+    build:
+      context: elasticsearch/
+      args:
+        ES_VERSION: $ES_VERSION
+        SG_PLUGIN_VERSION: $SG_PLUGIN_VERSION
+        SG_SSL_PLUGIN_VERSION: $SG_SSL_PLUGIN_VERSION
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch/config/sg_config.yml:/usr/share/elasticsearch/config/sg_config.yml
+      - ./elasticsearch/config/sg_action_groups.yml:/usr/share/elasticsearch/config/sg_action_groups.yml
+      - ./elasticsearch/config/sg_internal_users.yml:/usr/share/elasticsearch/config/sg_internal_users.yml
+      - ./elasticsearch/config/sg_roles_mapping.yml:/usr/share/elasticsearch/config/sg_roles_mapping.yml
+      - ./elasticsearch/config/sg_roles.yml:/usr/share/elasticsearch/config/sg_roles.yml
+      - ./elasticsearch/config/truststore.jks:/usr/share/elasticsearch/config/truststore.jks
+      - ./elasticsearch/config/kirk-keystore.jks:/usr/share/elasticsearch/config/kirk-keystore.jks
+      - ./elasticsearch/config/node-0-keystore.jks:/usr/share/elasticsearch/config/node-0-keystore.jks
+    ports:
+      - "9202:9200"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
