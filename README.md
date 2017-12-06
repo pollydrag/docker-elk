@@ -93,6 +93,7 @@ Search Guard must be initialized after Elasticsearch is started:
 
 ```bash
 $ docker-compose exec -T elasticsearch bin/init_sg.sh
+$ docker-compose exec -T elasticsearch2 bin/init_sg.sh
 ```
 
 _This executes sgadmin and loads the configuration from `elasticsearch/config/sg*.yml`_
