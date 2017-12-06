@@ -1,18 +1,22 @@
-ARG ELK_VERSION
+ARG ES_VERSION
 
-# https://github.com/elastic/elasticsearch-docker
-FROM docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+FROM elasticsearch:${ES_VERSION}
 
-COPY config/ config/
-COPY bin/ bin/
+COPY config/ /usr/share/elasticsearch/config/
+COPY bin/ /usr/share/elasticsearch/bin/
 
-# Search Guard plugin
+# Search Guard plugins
 # https://github.com/floragunncom/search-guard/wiki
-ARG ELK_VERSION
-RUN elasticsearch-plugin install --batch com.floragunn:search-guard-5:${ELK_VERSION}-16 \
-	&& chmod +x \
-		plugins/search-guard-5/tools/hash.sh \
-		plugins/search-guard-5/tools/sgadmin.sh
+ARG ES_VERSION
+ARG SG_SSL_PLUGIN_VERSION
+ARG SG_PLUGIN_VERSION
+
+RUN plugin install --batch com.floragunn/search-guard-ssl/${SG_SSL_PLUGIN_VERSION}
+RUN plugin install --batch com.floragunn/search-guard-2/${SG_PLUGIN_VERSION}
+
+RUN chmod +x \
+        plugins/search-guard-2/tools/hash.sh \
+        plugins/search-guard-2/tools/sgadmin.sh
 
 # Add your elasticsearch plugins setup here
 # Example: RUN elasticsearch-plugin install analysis-icu
