@@ -1,2 +1,2 @@
 #!/bin/sh
-plugins/search-guard-2/tools/sgadmin.sh -cd config/ -ts config/truststore.jks -ks config/kirk-keystore.jks -nhnv -icl
+plugins/search-guard-2/tools/sgadmin.sh -cd config/ -tst PKCS12 -ts config/root.p12 -kst PKCS12 -ks config/admin.p12 -nhnv -icl

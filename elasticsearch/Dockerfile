@@ -2,7 +2,6 @@ ARG ES_VERSION
 
 FROM elasticsearch:${ES_VERSION}
 
-COPY config/ /usr/share/elasticsearch/config/
 COPY bin/ /usr/share/elasticsearch/bin/
 
 # Search Guard plugins

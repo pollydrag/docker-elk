@@ -29,9 +29,9 @@ discovery.zen.ping.unicast.hosts: ["elasticsearch", "elasticsearch2"]
 
 ## Search Guard
 #
-searchguard.ssl.transport.keystore_filepath: node-0-keystore.jks
-searchguard.ssl.transport.truststore_filepath: truststore.jks
+searchguard.ssl.transport.keystore_filepath: node.p12
+searchguard.ssl.transport.truststore_filepath: root.p12
 searchguard.ssl.transport.enforce_hostname_verification: false
 
 searchguard.authcz.admin_dn:
-  - "CN=kirk,OU=client,O=client,l=tEst,C=De"
+  - "CN=sgadmin"
